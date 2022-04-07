@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import "./topbar.css";
 
 const TopBar=()=>{
@@ -12,10 +13,18 @@ const TopBar=()=>{
         </div>
         <div className="topCenter">
          <ul className="topList">
-            <li className="topListItem">HOME</li>
-            <li className="topListItem">ABOUT</li>
-            <li className="topListItem">CONTACT</li>
-            <li className="topListItem">WRITE</li>
+            <li className="topListItem">
+              <Link className="link" to="/">HOME</Link>
+            </li>
+            <li className="topListItem">
+              <Link className="link" to="/">ABOUT</Link>
+            </li>
+            <li className="topListItem">
+              <Link className="link" to="/">CONTACT</Link>
+            </li>
+            <li className="topListItem">
+              <Link className="link" to="/write">WRITE</Link>
+            </li>
             <li className="topListItem">LOGOUT</li>
          </ul>
         </div>
@@ -23,8 +32,6 @@ const TopBar=()=>{
           <img className="topImg" src="https://staticg.sportskeeda.com/editor/2021/10/5596d-16331824813563-800.jpg" alt=""/>
           <i className="searchIcon fa-solid fa-magnifying-glass"></i>
         </div>
-
-
      </div>
   );
 };
