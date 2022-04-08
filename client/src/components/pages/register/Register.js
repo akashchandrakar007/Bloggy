@@ -1,20 +1,64 @@
-import React from 'react';
+import React,{useState} from 'react';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 import './register.css';
 
 const Register=()=>{
+
+   const [username,setUsername]=useState('');
+   const [email,setEmail]=useState('');
+   const [password,setPassword]=useState('');
+   const [error,setError]=useState(false);
+
+   const handleSubmit=async (e)=>{
+      e.preventDefault();
+      setError(false);
+      try{
+      const response=await axios.post("/auth/register",{
+        username,
+        email,
+        password
+      });
+
+      response.data && window.location.replace('/login');
+    }catch(err){
+      setError(true);
+    }
+   };
+
    return (
      <div className="register">
          <span className="registerTitle">Register</span>
-         <form className="registerForm">
+         <form className="registerForm" onSubmit={handleSubmit}>
          <label>Username</label>
-         <input className="registerInput" type="text" placeholder="Enter Your Username.."/>
+         <input
+           className="registerInput"
+           type="text"
+           placeholder="Enter Your Username.."
+           onChange={(e)=>setUsername(e.target.value)}
+         />
          <label>Email</label>
-         <input className="registerInput" type="text" placeholder="Enter Your Email.."/>
+         <input
+            className="registerInput"
+            type="text"
+            placeholder="Enter Your Email.."
+            onChange={(e)=>setEmail(e.target.value)}
+         />
          <label>Password</label>
-         <input className="registerInput" type="password" placeholder="Enter your password.."/>
-         <button className="registerButton">Register</button>
+         <input
+            className="registerInput"
+            type="password"
+            placeholder="Enter your password.."
+            onChange={(e)=>setPassword(e.target.value)}
+          />
+         <button className="registerButton" type="submit">Register</button>
          </form>
-         <button className="registerLoginButton">Login</button>
+         <button className="registerLoginButton">
+         <Link className="link" to="/login">
+           Login
+         </Link>
+         </button>
+         {error?<span>Something went wrong!</span>:''}
      </div>
    );
 };

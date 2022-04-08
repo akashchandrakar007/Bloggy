@@ -1,26 +1,46 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
+import axios from 'axios';
+import {useLocation} from 'react-router';
+import {Link} from 'react-router-dom';
 import './singlePost.css';
 
 const SinglePost=()=>{
+
+  const location=useLocation();
+  const path=location.pathname.split('/')[2];
+  const [post,setPost]=useState({});
+
+  useEffect(()=>{
+    const getPost=async ()=>{
+       const response=await axios.get('/posts/'+path);
+       setPost(response.data);
+  };
+  getPost();
+
+  },[path]);
+
   return (
     <div className="singlePost">
        <div className="singlePostWrapper">
-        <img src="https://i.pinimg.com/originals/1a/0d/f5/1a0df5e4f0e503884cb5a1b5fde8e1bc.jpg" alt="" className="singlePostImg"/>
+        {post.photo && <img src={post.photo} alt="" className="singlePostImg"/>}
        </div>
-       <h1 className="singlePostTitle">Lorem ipsum dolor </h1>
+       <h1 className="singlePostTitle">{post.title} </h1>
        <div className="singlePostEdit">
           <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
           <i className="singlePostIcon fa-solid fa-trash-can"></i>
        </div>
        <div className="singlePostInfo">
-          <span className="singlePostAuther">Author:<b>Akash</b></span>
-          <span className="singlePostDate">1 hour ago</span>
+          <span className="singlePostAuther">
+            Author:<b>
+            <Link to={`/?user=${post.username}`} className="link">
+            {post.username}
+            </Link>
+            </b>
+          </span>
+          <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
        </div>
-       <p className="singlePostDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum eos iusto fugit quisquam suscipit magnam dicta, nam architecto incidunt cumque, beatae at veritatis quia itaque, sint quas debitis totam omnis.
-       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum eos iusto fugit quisquam suscipit magnam dicta, nam architecto incidunt cumque, beatae at veritatis quia itaque, sint quas debitis totam omnis.
-       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum eos iusto fugit quisquam suscipit magnam dicta, nam architecto incidunt cumque, beatae at veritatis quia itaque, sint quas debitis totam omnis.
-       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum eos iusto fugit quisquam suscipit magnam dicta, nam architecto incidunt cumque, beatae at veritatis quia itaque, sint quas debitis totam omnis.
-       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum eos iusto fugit quisquam suscipit magnam dicta, nam architecto incidunt cumque, beatae at veritatis quia itaque, sint quas debitis totam omnis.
+       <p className="singlePostDesc">
+        {post.desc}
        </p>
     </div>
   );
