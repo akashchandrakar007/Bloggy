@@ -9,7 +9,7 @@ const TopBar=()=>{
   const handleLogout=()=>{
      dispatch({type:"LOGOUT"});
   };
-  
+
   return (
      <div className="top">
         <div className="topLeft">
@@ -40,11 +40,13 @@ const TopBar=()=>{
         <div className="topRight">
           {
              user ? (
+               <Link to="/settings">
                 <img
                    className="topImg"
                    src="https://staticg.sportskeeda.com/editor/2021/10/5596d-16331824813563-800.jpg"
                    alt=""
                    />
+                </Link>   
              ):(
                <ul className="topList">
                 <li className="topListItem">
