@@ -1,10 +1,13 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {Context} from '../context/Context';
 import './sidebar.css';
 
 const Sidebar=()=>{
 
+    const PF="http://localhost:5000/images/";
+    const {user}=useContext(Context);
    const [cats,setCats]=useState([]);
   useEffect(()=>{
      const getCats=async ()=>{
@@ -17,9 +20,13 @@ const Sidebar=()=>{
    return (
      <div className="sidebar">
          <div className="sidebarItem">
-           <span className="sidebarTitle">ABOUT ME</span>
-           <img src="https://staticg.sportskeeda.com/editor/2021/10/5596d-16331824813563-800.jpg" alt=""/>
+           {user?(
+             <>
+            <span className="sidebarTitle">ABOUT ME</span>
+           <img src={user?PF+user.profilePic:""} alt=""/>
            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat nam iusto ducimus obcaecati rerum velit quo voluptas ut non, facere atque quidem, dignissimos, possimus.</p>
+           </>
+         ):(<div></div>)}
          </div>
          <div className="sidebarItem">
            <span className="sidebarTitle">CATEGORIES</span>

@@ -12,6 +12,7 @@ import Write from './components/pages/write/Write';
 import Settings from './components/pages/settings/Settings';
 import Login from './components/pages/login/Login';
 import Register from './components/pages/register/Register';
+import About from './components/pages/about/About';
 import {Context} from './components/context/Context';
 
 
@@ -26,6 +27,7 @@ const App=()=>{
           <Route exact path="/register" component={user?Home:Register}/>
           <Route exact path="/login" component={user?Home:Login}/>
           <Route exact path="/write" component={user?Write:Register}/>
+          <Route exact path="/about" component={About}/>
           <Route exact path="/settings" component={user?Settings:Register}/>
           <Route exact path="/post/:postId" component={Single}/>
        </Switch>

@@ -37,7 +37,7 @@ const Write=()=>{
       }catch(err){
 
       }
-   }
+   };
    return (
      <div className="write">
          {

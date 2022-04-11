@@ -5,6 +5,7 @@ import {Context} from '../context/Context';
 
 
 const TopBar=()=>{
+  const PF="http://localhost:5000/images/";
   const {user,dispatch}=useContext(Context);
   const handleLogout=()=>{
      dispatch({type:"LOGOUT"});
@@ -24,10 +25,7 @@ const TopBar=()=>{
               <Link className="link" to="/">HOME</Link>
             </li>
             <li className="topListItem">
-              <Link className="link" to="/">ABOUT</Link>
-            </li>
-            <li className="topListItem">
-              <Link className="link" to="/">CONTACT</Link>
+              <Link className="link" to="/about">ABOUT</Link>
             </li>
             <li className="topListItem">
               <Link className="link" to="/write">WRITE</Link>
@@ -43,10 +41,10 @@ const TopBar=()=>{
                <Link to="/settings">
                 <img
                    className="topImg"
-                   src="https://staticg.sportskeeda.com/editor/2021/10/5596d-16331824813563-800.jpg"
+                   src={PF+user.profilePic}
                    alt=""
                    />
-                </Link>   
+                </Link>
              ):(
                <ul className="topList">
                 <li className="topListItem">
